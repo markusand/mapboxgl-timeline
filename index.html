@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>MapboxGL TimelineControl example</title>
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.0.0/mapbox-gl.js"></script>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.0.0/mapbox-gl.css" rel="stylesheet" />
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+      }
+
+      #map {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="map"></div>
+    <script type="module" lang="ts">
+      import { Map } from 'mapbox-gl';
+      import TimelineControl from './src';
+
+      const map = new Map({
+        container: 'map',
+        accessToken: import.meta.env.VITE_MAPBOX_TOKEN,
+        style: 'mapbox://styles/mapbox/light-v10',
+        center: [-122.447303, 37.753574],
+        zoom: 12,
+      });
+
+      const timeline = new TimelineControl({
+        placeholder: 'Accidents',
+        start: '2004-06-15',
+        end: '2022-06-15',
+        step: 1000 * 3600 * 24 * 365,
+        format: date => date.getFullYear(),
+        speed: 3,
+        onChange: date => {
+          const year = date.getFullYear();
+          map.setFilter('crashes', ['==', ['get', 'accident_year'], `${year}`]);
+        }
+      });
+
+      map.addControl(timeline, 'top-left');
+      
+      map.on('load', () => {
+
+        map.addSource('crashes', {
+          type: 'geojson',
+          data: 'https://data.sfgov.org/resource/ubvf-ztfx.geojson',
+        });
+
+        map.addLayer({
+          id: 'crashes',
+          type: 'circle',
+          source: 'crashes',
+          paint: {
+            'circle-color': 'red',
+            'circle-radius': ['*', 3, ['sqrt', ['/', ['to-number', ['get', 'number_injured']], 1]]],
+            'circle-opacity': ['+', 0.33, ['*', 0.33, ['to-number', ['get', 'number_killed']]]]
+          },
+        });
+      });
+    </script>
+  </body>
+</html>

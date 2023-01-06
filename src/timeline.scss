@@ -1,0 +1,95 @@
+.mapboxgl-ctrl-timeline {
+  --padding: 0.3rem;
+  --border: 1px solid #0002;
+  --width: auto;
+  --color-bg: #fff;
+  --color-text: #333;
+  --color-track: #0001;
+
+  background: var(--color-bg);
+  display: flex;
+  align-items: stretch;
+  transition: all 0.5s ease;
+  color: var(--color-text);
+
+  *:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+
+  &__control {
+    display: flex;
+    align-items: stretch;
+  }
+
+  &__toggler {
+    height: auto !important;
+    width: auto !important;
+    padding: var(--padding) !important;
+    border-right: var(--border) !important;
+    border-radius: 4px 0 0 4px !important;
+
+    &::before {
+      display: block;
+      content: "";
+      background: var(--color-text);
+      height: 1.25rem;
+      width: 1.25rem;
+      margin: auto;
+      mask-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"/><path d="M7.752 5.439l10.508 6.13a.5.5 0 0 1 0 .863l-10.508 6.13A.5.5 0 0 1 7 18.128V5.871a.5.5 0 0 1 .752-.432z"/></svg>');
+      mask-size: 100%;
+    }
+
+    &.running::before { mask-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"/><path d="M15 7a1 1 0 0 1 2 0v10a1 1 0 1 1-2 0V7zM7 7a1 1 0 1 1 2 0v10a1 1 0 1 1-2 0V7z"/></svg>'); }
+    &.restart::before { mask-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"/><path d="M18.537 19.567A9.961 9.961 0 0 1 12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10c0 2.136-.67 4.116-1.81 5.74L17 12h3a8 8 0 1 0-2.46 5.772l.997 1.795z"/></svg>'); }
+  }
+
+  &__slider {
+    flex: 1;
+    appearance: none;
+    background: var(--color-track);
+    margin: auto calc(2 * var(--padding));
+    border-radius: 1em;
+    height: 4px;
+    width: var(--width);
+    cursor: pointer;
+
+    &::-webkit-slider-thumb {
+      appearance: none;
+      height: 1.5em;
+      width: 3px;
+      background: var(--color-text);
+      border: 0;
+      border-radius: 1em;
+    }
+
+    &::-moz-range-thumb {
+      appearance: none;
+      height: 1.5em;
+      width: 3px;
+      border: 0;
+      background: var(--color-text);
+      border-radius: 1em;
+    }
+  }
+
+  &__label {
+    border-left: var(--border);
+    padding: var(--padding) calc(2 * var(--padding));
+    font-size: 1rem;
+
+    &:empty { display: none; }
+  }
+
+  &.hidden {
+    opacity: 0;
+    transform: translateY(-50%);
+  }
+
+  &.stacked { flex-direction: column-reverse; }
+
+  &.stacked &__label {
+    border: 0;
+    border-bottom: var(--border);
+  }
+}

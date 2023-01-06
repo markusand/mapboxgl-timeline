@@ -1,0 +1,63 @@
+{
+  "name": "mapboxgl-timeline",
+  "version": "1.0.0",
+  "description": "Mapbox timeline slider control",
+  "main": "./dist/index.umd.js",
+  "module": "./dist/index.es.js",
+  "browser": "./dist/index.umd.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.es.js",
+      "require": "./dist/index.umd.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./dist/style.css": {
+      "import": "./dist/style.css",
+      "require": "./dist/style.css"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "lint": "eslint src && stylelint 'src/**/*.scss'",
+    "build": "vite build",
+    "prepare": "npm run build",
+    "dev": "vite"
+  },
+  "keywords": [
+    "mapbox",
+    "mapboxgl",
+    "plugin",
+    "slider",
+    "timeline",
+    "style"
+  ],
+  "author": "Marc Vilella <mvilella.and@gmail.com> (https://github.com/markusand)",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/markusand/mapboxgl-timeline.git"
+  },
+  "bugs": {
+    "url": "https://github.com/markusand/mapboxgl-timeline/issues"
+  },
+  "homepage": "https://github.com/markusand/mapboxgl-timeline",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/mapbox-gl": "^2.7.5",
+    "@typescript-eslint/eslint-plugin": "^5.36.1",
+    "@typescript-eslint/parser": "^5.36.1",
+    "autoprefixer": "^10.4.13",
+    "eslint": "^8.23.0",
+    "eslint-config-airbnb-typescript": "^17.0.0",
+    "eslint-import-resolver-typescript": "^3.5.0",
+    "mapbox-gl": "^2.10.0",
+    "sass": "^1.54.8",
+    "stylelint": "^14.11.0",
+    "stylelint-config-standard-scss": "^5.0.0",
+    "typescript": "^4.8.2",
+    "vite": "^3.0.9",
+    "vite-plugin-dts": "^1.4.1",
+  }
+}
