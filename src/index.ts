@@ -112,7 +112,7 @@ export default class Timeline {
     this.toggler.disabled = slider.disabled;
     if (global.autoplay) this.resume();
     if (global.autohide) this.display(!!slider.value);
-    this.reset();
+    this.slider.dispatchEvent(new Event('input'));
   }
 
   private updatePosition() {

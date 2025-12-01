@@ -43,6 +43,7 @@
         format: date => date.getFullYear(),
         speed: 3,
         onChange: date => {
+          if (!map.isStyleLoaded()) return;
           const year = date.getFullYear();
           map.setFilter('crashes', ['==', ['get', 'accident_year'], `${year}`]);
         }
