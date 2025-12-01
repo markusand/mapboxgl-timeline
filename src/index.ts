@@ -100,7 +100,8 @@ export default class Timeline {
   }
 
   reset() {
-    this.slider.value = this.slider.min;
+    t = parseFloat(this.slider.min);
+    this.slider.value = `${new Date(t).getTime()}`;
     this.slider.dispatchEvent(new Event('change'));
   }
 
